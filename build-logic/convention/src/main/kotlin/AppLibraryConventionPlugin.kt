@@ -8,8 +8,8 @@ class AppLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                alias(libs.plugins.convention.app.common)
                 alias(libs.plugins.androidLibrary)
+                alias(libs.plugins.convention.app.common)
             }
 
             configureAndroidLibrary()

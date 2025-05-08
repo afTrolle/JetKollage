@@ -14,6 +14,7 @@ dependencies {
 gradlePlugin {
     plugins {
         register(libs.plugins.convention.app.common, "AppCommonConventionPlugin")
+        register(libs.plugins.convention.app.compose, "AppComposeConventionPlugin")
         register(libs.plugins.convention.app.feature, "AppFeatureConventionPlugin")
         register(libs.plugins.convention.app.library, "AppLibraryConventionPlugin")
     }

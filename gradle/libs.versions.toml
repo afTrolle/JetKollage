@@ -19,7 +19,6 @@ coil = "3.2.0-rc02"
 filekit = "0.10.0-beta02"
 datastore = "1.1.6"
 settings = "1.3.0"
-crashlytics = "3.0.3"
 google-services = "4.4.2"
 compose = "1.8.0"
 jetbrains-lifecycle = "2.9.0-beta01"
@@ -90,9 +89,7 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-compose = { module = "io.insert-koin:koin-compose" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
-koin-test = { module = "io.insert-koin:koin-test" }
 koin-android = { module = "io.insert-koin:koin-android" }
-koin-ktor = { module = "io.insert-koin:koin-ktor3" }
 
 material = { module = "com.google.android.material:material", version.ref = "material" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
@@ -104,16 +101,14 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 [plugins]
 # App plugins
 convention-app-common = { id = "appCommon" }
+convention-app-compose = { id = "appCompose" }
 convention-app-feature = { id = "appFeature" }
 convention-app-library = { id = "appLibrary" }
-# App
-convention-shared-library = { id = "sharedLibrary" }
 
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose" }
 
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics" }
 
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }

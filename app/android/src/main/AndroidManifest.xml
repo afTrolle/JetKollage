@@ -4,7 +4,9 @@
     <application
         android:allowBackup="false"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:label="JetKollage"
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@style/AppTheme.Starting">
         <activity
             android:name=".MainActivity"
             android:exported="true">

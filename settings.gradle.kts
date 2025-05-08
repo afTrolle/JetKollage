@@ -19,5 +19,18 @@ dependencyResolutionManagement {
 
 rootProject.name = "JetKollage"
 
+// App
 include(":app:android")
+// Shared
 include(":frontend:shared")
+// Features
+include(":frontend:feature:about")
+include(":frontend:feature:canvas")
+include(":frontend:feature:home")
+// Libs
+include(":frontend:lib:api")
+include(":frontend:lib:common")
+include(":frontend:lib:domain")
+include(":frontend:lib:navigation")
+include(":frontend:lib:persistance")
+include(":frontend:lib:ui")

@@ -7,12 +7,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinBaseExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
-fun Project.configureKotlinJvm() {
-    extensions.configure<KotlinBaseExtension> {
-        configureKotlin(libs)
-    }
-}
-
 private fun KotlinBaseExtension.configureKotlin(libs: LibrariesForLibs) {
     jvmToolchain(libs.versions.jvm.toolchain.get().toInt())
     sourceSets.all {
