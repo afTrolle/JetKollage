@@ -5,11 +5,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class OverlayItems(
+data class SCRLOverlayCategory(
     @SerialName("id")
     val id: Int,
     @SerialName("items")
-    val items: List<OverlayItem>,
+    val items: List<SCRLOverlayItem>,
     @SerialName("thumbnail_url")
     val thumbnailUrl: String,
     @SerialName("title")
@@ -17,7 +17,7 @@ data class OverlayItems(
 )
 
 @Serializable
-data class OverlayItem(
+data class SCRLOverlayItem(
     @SerialName("category_id")
     val categoryId: Int,
     @SerialName("created_at")

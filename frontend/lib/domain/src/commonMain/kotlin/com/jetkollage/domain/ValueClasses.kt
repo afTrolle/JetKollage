@@ -30,6 +30,8 @@ value class Angle(val degrees: Float) {
     operator fun minus(other: Angle) = Angle(degrees - other.degrees)
 }
 
+@Immutable
+@Serializable
 @JvmInline
 value class ScaleFactor(val factor: Float) {
     init {
@@ -84,7 +86,6 @@ data class ViewportState(
     val zoom: Float = 1.0f,
     val panOffset: Coordinates = Coordinates(0f, 0f) // Offset of canvas origin from viewport origin
 )
-
 
 @Immutable
 @Serializable

@@ -7,15 +7,6 @@ import org.koin.dsl.module
 
 val uiModule = module {
 
-
-    single {
-        SingletonImageLoader.setSafe { context ->
-            ImageLoader.Builder(context)
-                .crossfade(true)
-                .build()
-        }
-    }
-
     single {
     //    SingletonImageLoader.get(PlatformContext(get()))
        // ImageLoader.Builder(LocalContext.current)

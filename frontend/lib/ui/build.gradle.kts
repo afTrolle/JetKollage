@@ -22,7 +22,7 @@ kotlin {
             implementation(libs.jetbrains.compose.adaptive.layout)
             implementation(libs.jetbrains.compose.adaptive)
 
-            api(libs.coil.core)
+            implementation(libs.coil.core)
             api(libs.coil.compose)
             implementation(libs.coil.ktor)
 

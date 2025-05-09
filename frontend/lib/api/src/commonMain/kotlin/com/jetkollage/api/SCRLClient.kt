@@ -1,6 +1,6 @@
 package com.jetkollage.api
 
-import com.jetkollage.api.model.OverlayItems
+import com.jetkollage.api.model.SCRLOverlayCategory
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -12,10 +12,10 @@ class SCRLClient(
     private val client: HttpClient,
 ) {
 
-    suspend fun getOverlays(): NetworkResult<List<OverlayItems>> = runCatching {
+    suspend fun getOverlays(): NetworkResult<List<SCRLOverlayCategory>> = runCatching {
         val response = client.get("${config.baseUrl}/overlays")
         if (response.status == HttpStatusCode.OK) {
-            val body = response.body<List<OverlayItems>>()
+            val body = response.body<List<SCRLOverlayCategory>>()
             NetworkResult.Success(body)
         } else {
             NetworkResult.ServerError(response.status.value)

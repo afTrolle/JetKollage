@@ -1,17 +1,14 @@
 plugins {
     alias(libs.plugins.convention.app.library)
+    alias(libs.plugins.convention.app.compose)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.frontend.lib.ui)
-
+            implementation(compose.runtime)
             implementation(libs.jetbrains.serialization.json)
-            implementation(libs.androidx.annotation)
-
-            implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin.compose)
         }
     }
 }

@@ -15,7 +15,7 @@ inline fun <reified T> Settings.naiveCache(
     defaultValue: T,
     noinline fetch: suspend () -> T
 ): Flow<T> = flow {
-    val storedValue = decodeValueOrNull<T?>(key = key) ?: defaultValue
+    val storedValue = decodeValueOrNull<T>(key = key) ?: defaultValue
 
     storedValue?.let {
         emit(it)
@@ -25,7 +25,7 @@ inline fun <reified T> Settings.naiveCache(
         fetch()
     }.onSuccess {
         emit(it)
-        encodeValue<T?>(key = key, value = it)
+        encodeValue<T>(key = key, value = it)
     }.onFailure {
         if (it is CancellationException) throw it
     }

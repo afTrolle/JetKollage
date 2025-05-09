@@ -34,7 +34,8 @@ fun HomeScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeLayout(
-    state: HomeState, onEvent: (HomeEvent) -> Unit = {}
+    state: HomeState,
+    onEvent: (HomeEvent) -> Unit = {}
 ) = Scaffold(
     topBar = { JetKollageTopBar("JetKollage") },
 ) {

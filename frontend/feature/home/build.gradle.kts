@@ -9,6 +9,7 @@ kotlin {
             implementation(projects.frontend.lib.navigation)
             implementation(projects.frontend.lib.persistance)
             implementation(projects.frontend.lib.ui)
+            implementation(projects.frontend.lib.domain)
 
             implementation(compose.materialIconsExtended)
             implementation(compose.material3AdaptiveNavigationSuite)
