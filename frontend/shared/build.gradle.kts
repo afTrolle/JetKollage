@@ -47,6 +47,7 @@ kotlin {
             implementation(projects.frontend.feature.about)
             implementation(projects.frontend.feature.canvas)
             implementation(projects.frontend.feature.home)
+            implementation(projects.frontend.lib.api)
             implementation(projects.frontend.lib.navigation)
             implementation(projects.frontend.lib.ui)
             implementation(projects.frontend.lib.persistance)

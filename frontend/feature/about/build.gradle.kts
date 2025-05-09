@@ -5,6 +5,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.frontend.lib.navigation)
 
             implementation(libs.jetbrains.androidx.navigation.compose)
         }

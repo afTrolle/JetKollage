@@ -41,17 +41,17 @@ arrow-fx-coroutines = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref 
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
-androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen"}
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashscreen" }
 android-tools-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
 
 jetbrains-androidx-lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "jetbrains-lifecycle" }
 jetbrains-androidx-lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "jetbrains-lifecycle" }
 jetbrains-androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "jetbrains-navigation" }
-jetbrains-compose-material-icons =  { module = "org.jetbrains.compose.material:material-icons-core", version.ref = "jetbrains-icons" }
+jetbrains-compose-material-icons = { module = "org.jetbrains.compose.material:material-icons-core", version.ref = "jetbrains-icons" }
 jetbrains-compose-material3-window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "compose" }
-jetbrains-compose-adaptive= { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "jetbrains-adaptive" }
-jetbrains-compose-adaptive-layout= { module = "org.jetbrains.compose.material3.adaptive:adaptive-layout", version.ref = "compose" }
-jetbrains-compose-adaptive-navigation= { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation", version.ref = "compose" }
+jetbrains-compose-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "jetbrains-adaptive" }
+jetbrains-compose-adaptive-layout = { module = "org.jetbrains.compose.material3.adaptive:adaptive-layout", version.ref = "jetbrains-adaptive" }
+jetbrains-compose-adaptive-navigation = { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation", version.ref = "jetbrains-adaptive" }
 
 jetbrains-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "jetbrains-serialization" }
 jetbrains-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
@@ -64,11 +64,9 @@ coil-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coi
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
-ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
-ktor-client-websockets = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 
-ktor-serialization-kotlinx-protobuf = { module = "io.ktor:ktor-serialization-kotlinx-protobuf", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }

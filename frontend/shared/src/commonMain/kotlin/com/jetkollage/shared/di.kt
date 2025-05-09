@@ -1,5 +1,6 @@
 package com.jetkollage.shared
 
+import com.jetkollage.api.apiModule
 import com.jetkollage.feat.home.homeModule
 import com.jetkollage.nav.navigationModule
 import com.jetkollage.persistance.persistenceModule
@@ -12,6 +13,7 @@ val koinConfiguration = koinConfiguration {
         homeModule,
         persistenceModule,
         navigationModule,
+        apiModule,
     )
 }
 

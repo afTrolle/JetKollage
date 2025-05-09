@@ -9,5 +9,4 @@ fun NavGraphBuilder.homeFeature() {
     composable<Graph.Home> {
         HomeScreen()
     }
-
 }

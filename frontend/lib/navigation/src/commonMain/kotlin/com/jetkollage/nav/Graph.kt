@@ -14,6 +14,9 @@ sealed class Graph {
     data object About : Graph()
 
     @Serializable
+    data object Licence : Graph()
+
+    @Serializable
     data object Home : Graph()
 
     @Serializable
@@ -28,6 +31,7 @@ sealed class Graph {
             mapOf(
                 Graph::class.qualifiedName to serializer(),
                 About::class.qualifiedName to About.serializer(),
+                Licence::class.qualifiedName to Licence.serializer(),
                 Home::class.qualifiedName to Home.serializer(),
                 Canvas::class.qualifiedName to Canvas.serializer(),
             )

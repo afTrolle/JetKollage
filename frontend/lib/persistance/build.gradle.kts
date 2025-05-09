@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.convention.app.library)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -12,9 +13,11 @@ kotlin {
         }
 
         commonMain.dependencies {
-            implementation(libs.multiplatform.settings)
-            implementation(libs.multiplatform.settings.serialization)
+            api(libs.multiplatform.settings)
+            api(libs.multiplatform.settings.serialization)
             implementation(libs.multiplatform.settings.coroutines)
+            implementation(libs.jetbrains.coroutines)
+            implementation(libs.jetbrains.serialization.json)
 
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
