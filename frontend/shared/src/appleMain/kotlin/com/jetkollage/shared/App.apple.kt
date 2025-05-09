@@ -1,7 +1,7 @@
-
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeUIViewController
 import com.jetkollage.shared.App
+import com.jetkollage.shared.initKoin
 import platform.UIKit.UIViewController
 
 
@@ -13,3 +13,5 @@ fun ComposeApp(): UIViewController = ComposeUIViewController(
     },
     content = { App() }
 )
+
+fun initKoin() = initKoin()
