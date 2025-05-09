@@ -49,7 +49,6 @@ internal fun HomeLayout(
     var showOverlayPickerSheet by remember { mutableStateOf(false) }
 
     JetKollageToolsOverlay(
-        modifier = Modifier.padding(it),
         windowWidthSizeClass = windowSizeClass.widthSizeClass,
         navigationSuiteItems = {
             toolbar(

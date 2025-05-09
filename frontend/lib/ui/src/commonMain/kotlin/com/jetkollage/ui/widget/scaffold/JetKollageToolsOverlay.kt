@@ -13,8 +13,11 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.safeGestures
 import androidx.compose.foundation.layout.systemGestures
 import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.widthIn
@@ -68,7 +71,10 @@ fun JetKollageToolsOverlay(
         content()
         when (isCompact) {
             true -> ToolBar(
-                modifier = modifier.align(Alignment.BottomCenter),
+                modifier = modifier
+                    .windowInsetsPadding(WindowInsets.navigationBars)
+                    .padding(horizontal = 16.dp)
+                    .align(Alignment.BottomCenter),
                 containerColor = containerColor,
                 contentColor = contentColor
             ) {
@@ -95,10 +101,10 @@ fun JetKollageToolsOverlay(
                 ToolRail(
                     modifier = modifier
                         .windowInsetsPadding(
-                            WindowInsets.systemGestures
+                            WindowInsets.safeGestures
                                 .only(WindowInsetsSides.Horizontal)
-                                .union(WindowInsets.displayCutout)
-                        ),
+                        )
+                    ,
                     containerColor = containerColor,
                     contentColor = contentColor,
                 ) {
@@ -192,7 +198,7 @@ private fun ToolBar(
     tonalElevation: Dp = NavigationBarDefaults.Elevation,
     content: @Composable RowScope.() -> Unit
 ) = Surface(
-    modifier = modifier.padding(16.dp),
+    modifier = modifier,
     color = containerColor,
     contentColor = contentColor,
     tonalElevation = tonalElevation,
