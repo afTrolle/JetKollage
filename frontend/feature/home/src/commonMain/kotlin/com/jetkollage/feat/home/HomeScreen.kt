@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jetkollage.domain.ViewportState
 import com.jetkollage.feat.home.widgets.JetKollageTopBar
 import com.jetkollage.feat.home.widgets.OverlayPickerBottomSheet
 import com.jetkollage.feat.home.widgets.Tool
@@ -16,7 +17,6 @@ import com.jetkollage.feat.home.widgets.toolbar
 import com.jetkollage.ui.util.windowSizeClass
 import com.jetkollage.ui.widget.canvas.CanvasEvent
 import com.jetkollage.ui.widget.canvas.JetKollageCanvas
-import com.jetkollage.ui.widget.canvas.drawable.CanvasState
 import com.jetkollage.ui.widget.scaffold.JetKollageToolsOverlay
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
@@ -40,7 +40,7 @@ fun HomeScreen() {
 @Composable
 internal fun HomeLayout(
     state: HomeState,
-    canvasState: State<CanvasState>,
+    canvasState: State<com.jetkollage.ui.widget.canvas.drawable.ViewportState>,
     onEvent: (HomeEvent) -> Unit = {},
     onCanvasEvent: (CanvasEvent) -> Unit = {},
 ) = Scaffold(

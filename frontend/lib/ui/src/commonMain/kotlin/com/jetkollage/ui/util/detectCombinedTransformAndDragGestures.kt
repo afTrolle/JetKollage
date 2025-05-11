@@ -17,6 +17,9 @@ import kotlin.math.abs
 suspend fun PointerInputScope.detectCombinedTransformAndDragGestures(
     panZoomLock: Boolean = false,
     onTransformGesture: (centroid: Offset, panDelta: Offset, zoomDelta: Float, rotationDelta: Float) -> Unit,
+    onTransformGestureStart: ((startCentroid: Offset) -> Unit)? = null,
+    onTransformGestureEnd: (() -> Unit)? = null,
+    onTransformGestureCancel: (() -> Unit)? = null,
     onDragGestureStart: ((startCentroid: Offset) -> Unit)? = null,
     onDragGesture: ((panDelta: Offset) -> Unit)? = null,
     onDragGestureEnd: (() -> Unit)? = null,
@@ -32,6 +35,7 @@ suspend fun PointerInputScope.detectCombinedTransformAndDragGestures(
     val touchSlop = viewConfiguration.touchSlop
     var lockedToPanZoom = false
     var isCurrentlyDragging = false
+    var transformGestureStartedThisSession = false
 
     var wasCancelled = false
 
@@ -47,6 +51,9 @@ suspend fun PointerInputScope.detectCombinedTransformAndDragGestures(
             if (isCurrentlyDragging) {
                 isCurrentlyDragging = false
                 onDragGestureCancel?.invoke()
+            }
+            if (transformGestureStartedThisSession) {
+                onTransformGestureCancel?.invoke()
             }
             break
         }
@@ -88,9 +95,14 @@ suspend fun PointerInputScope.detectCombinedTransformAndDragGestures(
                 pastTouchSlop = true
                 lockedToPanZoom = panZoomLock && rotationMotion < touchSlop
 
+                val currentCentroid = event.calculateCentroid(useCurrent = false)
+                if (!transformGestureStartedThisSession) {
+                    transformGestureStartedThisSession = true
+                    onTransformGestureStart?.invoke(currentCentroid)
+                }
+
                 if (eventPanChange != Offset.Zero && !isCurrentlyDragging) {
                     isCurrentlyDragging = true
-                    val currentCentroid = event.calculateCentroid(useCurrent = false)
                     onDragGestureStart?.invoke(currentCentroid)
                 }
             }
@@ -119,5 +131,8 @@ suspend fun PointerInputScope.detectCombinedTransformAndDragGestures(
     if (!wasCancelled && isCurrentlyDragging) {
         isCurrentlyDragging = false
         onDragGestureEnd?.invoke()
+    }
+    if (!wasCancelled && transformGestureStartedThisSession) {
+        onTransformGestureEnd?.invoke()
     }
 }

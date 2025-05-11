@@ -2,10 +2,8 @@ package com.jetkollage.ui.widget.canvas
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.geometry.center
-import com.jetkollage.ui.widget.canvas.drawable.Drawable
+import androidx.compose.ui.graphics.Matrix
 import com.jetkollage.ui.widget.canvas.drawable.DrawableId
 import kotlin.jvm.JvmInline
 
@@ -17,33 +15,33 @@ import kotlin.jvm.JvmInline
 data class TransformationsContainer(
     val transformations: List<Pair<DrawableId, TransformationOperation>> = emptyList(),
     val temporaryOffset: Pair<DrawableId, TransformationOperation.Offset>? = null,
+    val temporaryZoom: Pair<DrawableId, TransformationOperation.Zoom>? = null,
 ) {
 
-    private fun getTemporaryTransformations(drawable: DrawableId) = listOfNotNull(
-        temporaryOffset.takeIf { it?.first == drawable }?.second
-    )
+    private val temporaryTransformations = listOfNotNull(temporaryOffset, temporaryZoom)
+    private val allTransforms = transformations + temporaryTransformations
 
     private fun getTransformations(drawable: DrawableId): List<TransformationOperation> =
-        transformations.filter { it.first == drawable }.map { it.second }
+        allTransforms.filter { it.first == drawable }.map { it.second }
 
-    fun getTransformation(
-        drawable: DrawableId,
-        parentTransformation: Transformation,
-    ): Transformation {
-        // Drawable transformations
-        val transformations = getTransformations(drawable) + getTemporaryTransformations(drawable)
-        val zoom = transformations.getZoom()
-        val offset = transformations.getOffset()
+    fun getTransformation(drawable: DrawableId): Transformation =
+        getTransformations(drawable).fold(Transformation.IDENTITY) { acc, operation ->
+            when (operation) {
+                is TransformationOperation.Offset -> acc.copy(centerOffset = acc.centerOffset + operation.value)
+                is TransformationOperation.Zoom -> acc.copy(zoom = acc.zoom * operation.value)
+            }
+        }
 
-        return Transformation(
-            zoom = parentTransformation.zoom * zoom,
-            centerOffset = parentTransformation.centerOffset + offset
+    fun transformationsInProgress(drawableId: DrawableId) = temporaryTransformations.find { it.first == drawableId } != null
+
+    /**
+     * offset transformation
+     */
+
+    fun startOffsetTransformation(drawable: DrawableId?, offset: Offset) =
+        if (drawable == null) this else copy(
+            temporaryOffset = drawable to TransformationOperation.Offset(offset)
         )
-    }
-
-    fun startOffsetTransformation(drawable: DrawableId, offset: Offset) = copy(
-        temporaryOffset = drawable to TransformationOperation.Offset(offset)
-    )
 
     fun adjustOffsetTransformation(offset: Offset) = copy(
         temporaryOffset = temporaryOffset?.let { it + offset }
@@ -58,25 +56,39 @@ data class TransformationsContainer(
 
     fun cancelOffsetTransformation() = copy(temporaryOffset = null)
 
+    /*
+     * Zoom transformation
+     */
+
+    fun commitZoomTransformation() =
+        temporaryZoom?.let {
+            copy(
+                transformations = transformations.plus(temporaryZoom),
+                temporaryZoom = null
+            )
+        } ?: this
+
+    fun cancelZoomTransformation() = copy(temporaryZoom = null)
+
+    fun adjustZoomTransformation(zoom: Float) = temporaryZoom?.let {
+        copy(temporaryZoom = it.first to TransformationOperation.Zoom(it.second.value * zoom))
+    } ?: this
+
+    fun startZoomTransformation(id: DrawableId?): TransformationsContainer =
+        if (id == null) this else copy(
+            temporaryZoom = id to TransformationOperation.Zoom(1f)
+        )
+
 }
 
 operator fun Pair<DrawableId, TransformationOperation.Offset>.plus(other: Offset): Pair<DrawableId, TransformationOperation.Offset> =
     copy(second = second + TransformationOperation.Offset(other))
 
 
-private fun List<TransformationOperation>.getZoom(): Float =
-    filterIsInstance<TransformationOperation.Zoom>()
-        .fold(1f) { acc, task -> acc * task.value }
-
-private fun List<TransformationOperation>.getOffset(): Offset =
-    filterIsInstance<TransformationOperation.Offset>()
-        .fold(Offset.Zero) { acc, task -> acc + task.value }
-
 sealed interface TransformationOperation {
 
     @JvmInline
     value class Offset(val value: androidx.compose.ui.geometry.Offset) : TransformationOperation {
-
         operator fun plus(other: Offset): Offset = Offset(value + other.value)
         operator fun minus(other: Offset): Offset = Offset(value - other.value)
     }
@@ -87,7 +99,6 @@ sealed interface TransformationOperation {
             require(value > 0) { "Zoom must be positive" }
         }
     }
-
 }
 
 
@@ -100,11 +111,17 @@ data class Transformation(
         require(zoom > 0) { "Zoom must be positive" }
     }
 
-    fun getSize(size: Size) = size * zoom
-
-    fun getRect(size: Size) = getSize(size).let {
-        val topLeft = centerOffset - it.center
-        Rect(topLeft, it)
+    fun getMatrix(
+        intrinsicSize: Size,
+    ) = Matrix().apply {
+        scale(
+            x = zoom,
+            y = zoom,
+        )
+        translate(
+            x = centerOffset.x - intrinsicSize.width / 2,
+            y = centerOffset.y - intrinsicSize.height / 2,
+        )
     }
 
     companion object {

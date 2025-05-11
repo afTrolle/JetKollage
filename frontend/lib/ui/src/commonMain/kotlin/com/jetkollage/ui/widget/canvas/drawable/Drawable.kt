@@ -1,8 +1,8 @@
 package com.jetkollage.ui.widget.canvas.drawable
 
-import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Matrix
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import com.jetkollage.ui.widget.canvas.Transformation
 import kotlin.jvm.JvmInline
 
 
@@ -19,9 +19,8 @@ value class DrawableId(val value: Int) {
 interface Drawable {
 
     val id: DrawableId
+    val intrinsicSize: Size
+    val draw: DrawScope.(Matrix) -> Unit
 
-    fun DrawScope.draw(parentTransformation: Transformation)
-
-    fun getRect(parentTransformation: Transformation): Rect
 }
 
