@@ -87,9 +87,7 @@ fun OverlayPickerBottomSheet(
                                 indication = ripple(color = Color.White, bounded = true),
                                 role = Role.Image
                             ) {
-                                onOverlaySelected(
-                                    categoryItem
-                                )
+                                onOverlaySelected(categoryItem)
                             }
                             .padding(8.dp)
                             .fillMaxWidth()

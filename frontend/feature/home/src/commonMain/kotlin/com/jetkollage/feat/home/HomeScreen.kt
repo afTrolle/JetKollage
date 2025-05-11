@@ -45,7 +45,6 @@ internal fun HomeLayout(
 ) = Scaffold(
     topBar = { JetKollageTopBar("JetKollage") },
 ) {
-
     val windowSizeClass = windowSizeClass()
 
     val imagePicker = rememberFilePickerLauncher(type = FileKitType.Image) { image ->
@@ -76,6 +75,10 @@ internal fun HomeLayout(
         if (showOverlayPickerSheet) {
             OverlayPickerBottomSheet(
                 categories = state.overlays,
+                onOverlaySelected = {
+                    onEvent(HomeEvent.OnOverlay(it))
+                    showOverlayPickerSheet = false
+                },
                 onDismissRequest = { showOverlayPickerSheet = false }
             )
         }

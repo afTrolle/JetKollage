@@ -14,7 +14,7 @@ import kotlin.jvm.JvmInline
  * TODO setup flatten structure to save compute & sliding window to save memory
  */
 data class TransformationsContainer(
-    val transformations: List<Pair<Drawable, TransformationOperation>> = emptyList()
+    val transformations: List<Pair<Drawable, TransformationOperation>> = emptyList(),
 ) {
 
     private fun getTransformations(drawable: Drawable): List<TransformationOperation> =
@@ -22,7 +22,7 @@ data class TransformationsContainer(
 
     fun getTransformation(
         drawable: Drawable,
-        parentTransformation: Transformation
+        parentTransformation: Transformation,
     ): Transformation {
         // Drawable transformations
         val transformations = getTransformations(drawable)
@@ -34,7 +34,6 @@ data class TransformationsContainer(
             centerOffset = parentTransformation.centerOffset + offset
         )
     }
-
 }
 
 private fun List<TransformationOperation>.getZoom(): Float =
@@ -60,6 +59,9 @@ data class Transformation(
     val zoom: Float = 1f,
     val centerOffset: Offset = Offset.Zero,
 ) {
+    init {
+        require(zoom > 0) { "Zoom must be positive" }
+    }
 
     fun getSize(size: Size) = size * zoom
 

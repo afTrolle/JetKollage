@@ -4,15 +4,15 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.scale
 import com.jetkollage.ui.widget.canvas.Transformation
 
-sealed class Layer : Drawable {
+sealed interface Layer : Drawable {
+    val isSelected: Boolean
 
     data class ImageLayer(
-        val isSelected: Boolean,
+        override val isSelected: Boolean = false,
         val image: ImageBitmap,
-    ) : Layer() {
+    ) : Layer {
         val imageSize = Size(image.width.toFloat(), image.height.toFloat())
 
         override fun DrawScope.draw(parentTransformation: Transformation) {

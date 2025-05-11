@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.util.fastRoundToInt
+import androidx.compose.ui.util.fastForEachReversed
 import com.jetkollage.ui.ext.asBitmap
 import com.jetkollage.ui.widget.canvas.Transformation
 import com.jetkollage.ui.widget.canvas.TransformationsContainer
@@ -16,9 +16,17 @@ import com.jetkollage.ui.widget.canvas.TransformationsContainer
 data class CanvasState(
     val size: Size = Size(400f, 400f), // Resolution
     val background: Color = Color.Companion.White,
-    val layers: List<Drawable> = emptyList(),
+    val layers: List<Layer> = emptyList(),
     val transformationContainer: TransformationsContainer = TransformationsContainer(),
 ) : Drawable {
+
+    init {
+        require(layers.count { it.isSelected } <= 1) { "multiple layers selected" }
+    }
+
+    fun addImage(image: ImageBitmap) = copy(
+        layers = listOf(Layer.ImageLayer(image = image)) + layers
+    )
 
     fun export(): ImageBitmap {
         val drawScope = CanvasDrawScope()
@@ -30,8 +38,10 @@ data class CanvasState(
     /*
         Draw
      */
+
     override fun DrawScope.draw(parentTransformation: Transformation) {
-        val transformation = transformationContainer.getTransformation(this@CanvasState, parentTransformation)
+        val transformation =
+            transformationContainer.getTransformation(this@CanvasState, parentTransformation)
         // Draw background
         drawCanvas(transformation)
         drawLayers(transformation)
@@ -48,7 +58,7 @@ data class CanvasState(
     }
 
     private fun DrawScope.drawLayers(parentTransformation: Transformation) =
-        layers.forEach {
+        layers.fastForEachReversed {
             with(it) {
                 val transformation =
                     transformationContainer.getTransformation(it, parentTransformation)
