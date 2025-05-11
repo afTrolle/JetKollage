@@ -31,7 +31,8 @@ fun HomeScreen() {
     HomeLayout(
         state = state.value,
         onEvent = viewmodel::onEvent,
-        canvasState = canvasState
+        canvasState = canvasState,
+        onCanvasEvent = viewmodel::onCanvasEvent,
     )
 }
 

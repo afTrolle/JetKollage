@@ -26,7 +26,7 @@ sealed interface CanvasEvent {
 
     data class OnTap(val centerOffset: Offset) : CanvasEvent
 
-    data class OnDragGestureStart(val centerOffset: Offset) : CanvasEvent
+    data object OnDragGestureStart : CanvasEvent
 
     data object OnDragGestureEnd : CanvasEvent
 
@@ -54,12 +54,11 @@ fun JetKollageCanvas(
             .pointerInput(onAction) {
                 detectCombinedTransformAndDragGestures(
                     onTap = {
-                        val centerOffset = it + centerOffset
+                        val centerOffset = it - centerOffset
                         onAction(OnTap(centerOffset))
                     },
                     onDragGestureStart = {
-                        val centerOffset = it + centerOffset
-                        onAction(OnDragGestureStart(centerOffset))
+                        onAction(OnDragGestureStart)
                     },
                     onDragGestureEnd = {
                         onAction(OnDragGestureEnd)

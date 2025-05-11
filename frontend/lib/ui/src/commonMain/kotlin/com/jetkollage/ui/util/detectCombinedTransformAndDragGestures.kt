@@ -38,7 +38,6 @@ suspend fun PointerInputScope.detectCombinedTransformAndDragGestures(
     val firstDown = awaitFirstDown(requireUnconsumed = false)
     val firstDownId = firstDown.id
     val firstDownPosition = firstDown.position
-    awaitFirstDown(requireUnconsumed = false)
     do {
         val event = awaitPointerEvent()
         val canceledByConsumption = event.changes.any { it.isConsumed }
