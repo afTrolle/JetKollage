@@ -1,21 +1,22 @@
 package com.jetkollage.feat.home
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jetkollage.feat.home.widgets.JetKollageTopBar
 import com.jetkollage.feat.home.widgets.OverlayPickerBottomSheet
 import com.jetkollage.feat.home.widgets.Tool
 import com.jetkollage.feat.home.widgets.toolbar
 import com.jetkollage.ui.util.windowSizeClass
+import com.jetkollage.ui.widget.canvas.CanvasEvent
+import com.jetkollage.ui.widget.canvas.JetKollageCanvas
+import com.jetkollage.ui.widget.canvas.drawable.CanvasState
 import com.jetkollage.ui.widget.scaffold.JetKollageToolsOverlay
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
@@ -25,9 +26,12 @@ import org.koin.compose.viewmodel.koinViewModel
 fun HomeScreen() {
     val viewmodel = koinViewModel<HomeViewModel>()
     val state = viewmodel.state.collectAsStateWithLifecycle()
+    val canvasState = viewmodel.canvasState.collectAsStateWithLifecycle()
 
     HomeLayout(
-        state = state.value, onEvent = viewmodel::onEvent
+        state = state.value,
+        onEvent = viewmodel::onEvent,
+        canvasState = canvasState
     )
 }
 
@@ -35,7 +39,9 @@ fun HomeScreen() {
 @Composable
 internal fun HomeLayout(
     state: HomeState,
-    onEvent: (HomeEvent) -> Unit = {}
+    canvasState: State<CanvasState>,
+    onEvent: (HomeEvent) -> Unit = {},
+    onCanvasEvent: (CanvasEvent) -> Unit = {},
 ) = Scaffold(
     topBar = { JetKollageTopBar("JetKollage") },
 ) {
@@ -62,7 +68,10 @@ internal fun HomeLayout(
             )
         },
     ) {
-        KollageCanvas()
+        JetKollageCanvas(
+            canvasState,
+            onCanvasEvent
+        )
 
         if (showOverlayPickerSheet) {
             OverlayPickerBottomSheet(
@@ -73,7 +82,3 @@ internal fun HomeLayout(
     }
 }
 
-@Composable
-fun KollageCanvas() {
-    // TODO setup Canvas
-}

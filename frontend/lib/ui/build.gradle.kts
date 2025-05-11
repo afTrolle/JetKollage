@@ -9,6 +9,9 @@ compose.resources {
 
 kotlin {
     sourceSets {
+        androidMain.dependencies {
+            implementation(libs.koin.android)
+        }
         commonMain.dependencies {
             api(compose.runtime)
             api(compose.material3)

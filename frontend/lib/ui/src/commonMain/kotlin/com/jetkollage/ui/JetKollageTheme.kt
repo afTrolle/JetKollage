@@ -11,6 +11,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import coil3.ImageLoader
 import coil3.compose.setSingletonImageLoaderFactory
 import coil3.request.crossfade
+import org.koin.core.KoinApplication
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -19,7 +20,6 @@ fun JetKollageTheme(
     dynamicColor: Boolean = false, // TODO add settings toggle
     content: @Composable () -> Unit
 ) {
-    ConfigureImageLoader()
 
     val dynamicColorScheme = if (dynamicColor) {
         getDynamicColorScheme(darkTheme)
@@ -53,13 +53,5 @@ fun JetKollageTheme(
 
 }
 
-@Composable
-fun ConfigureImageLoader() {
-    setSingletonImageLoaderFactory { context ->
-        ImageLoader.Builder(context)
-            .crossfade(true)
-            .build()
-    }
-}
 
 

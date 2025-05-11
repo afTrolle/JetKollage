@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 val homeModule = module {
     single { OverlayRepository(get(), get()) }
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(), get()) }
 }
