@@ -4,6 +4,7 @@
     <string name="tool_add_image">Image</string>
     <string name="tool_add_overlay">Overlay</string>
     <string name="tool_layers">Layers</string>
+    <string name="tool_export">Export</string>
 
     <string name="bottom_sheet_overlay_headline">Overlays</string>
     <string name="bottom_sheet_overlay_exit_desc">close bottom sheet</string>

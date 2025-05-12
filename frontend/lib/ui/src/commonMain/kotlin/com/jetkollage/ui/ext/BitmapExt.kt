@@ -21,3 +21,5 @@ fun CanvasDrawScope.asBitmap(size: Size, onDraw: DrawScope.() -> Unit): ImageBit
     return bitmap
 }
 
+expect suspend fun ImageBitmap.toBytes() : ByteArray?
+

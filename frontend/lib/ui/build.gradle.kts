@@ -14,6 +14,7 @@ kotlin {
         }
         commonMain.dependencies {
             api(compose.runtime)
+            api(compose.foundation)
             api(compose.material3)
             implementation(compose.materialIconsExtended)
             implementation(compose.material3AdaptiveNavigationSuite)
@@ -31,6 +32,9 @@ kotlin {
 
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
+
+            implementation(libs.filekit.dialogs)
+            implementation(libs.filekit.coil)
         }
 
         commonTest.dependencies {

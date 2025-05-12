@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.request.ImageRequest
+import coil3.request.allowConversionToBitmap
 import coil3.toBitmap
 import com.jetkollage.ui.ext.composeBitmap
 import kotlinx.coroutines.sync.Mutex
@@ -29,6 +30,7 @@ class ImageRepository(
         val request = ImageRequest
             .Builder(platformContext)
             .data(data)
+            .allowConversionToBitmap(true)
             .build()
 
         return imageLoader.execute(request)

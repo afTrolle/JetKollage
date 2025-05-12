@@ -27,6 +27,7 @@ kotlin {
 
             implementation(libs.filekit.dialogs.compose)
             implementation(libs.filekit.coil)
+            implementation(libs.filekit.core)
 
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.compose)

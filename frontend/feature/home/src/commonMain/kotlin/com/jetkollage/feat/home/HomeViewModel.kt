@@ -1,6 +1,7 @@
 package com.jetkollage.feat.home
 
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jetkollage.domain.overlay.OverlayCategory
@@ -10,8 +11,8 @@ import com.jetkollage.ui.repository.ImageRepository
 import com.jetkollage.ui.widget.canvas.CanvasEvent
 import com.jetkollage.ui.widget.canvas.drawable.ViewportState
 import io.github.vinceglb.filekit.PlatformFile
-import io.github.vinceglb.filekit.coil.coilModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -26,9 +27,8 @@ sealed interface HomeEvent {
 
     data class OnOverlay(val overlay: OverlayItem) : HomeEvent
 
-    data object OnLayers : HomeEvent
-
     data object OnAbout : HomeEvent
+    object OnExport : HomeEvent
 }
 
 internal class HomeViewModel(
@@ -37,6 +37,7 @@ internal class HomeViewModel(
 ) : ViewModel() {
 
     val state = MutableStateFlow(HomeState())
+    val exportFlow  = MutableSharedFlow<Unit>(replay = 0)
 
     init {
         viewModelScope.launch(Dispatchers.Default) {
@@ -51,13 +52,13 @@ internal class HomeViewModel(
     fun onEvent(event: HomeEvent) {
         viewModelScope.launch {
             when (event) {
-                is HomeEvent.OnImage -> addImage(event.platformImage?.coilModel)
+                is HomeEvent.OnImage -> addImage(event.platformImage)
                 is HomeEvent.OnOverlay -> addImage(event.overlay.url)
 
-                HomeEvent.OnAbout -> { /* NO-OP */
-                }
+                HomeEvent.OnAbout -> { /* NO-OP */ }
 
-                HomeEvent.OnLayers -> { /* NO-OP */
+                HomeEvent.OnExport -> {
+                    exportFlow.emit(Unit)
                 }
             }
         }

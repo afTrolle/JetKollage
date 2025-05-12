@@ -7,10 +7,12 @@ import androidx.compose.ui.geometry.center
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Matrix
+import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.util.fastFirstOrNull
 import androidx.compose.ui.util.fastForEachReversed
+import com.jetkollage.ui.ext.asBitmap
 import com.jetkollage.ui.widget.canvas.CanvasEvent
 import com.jetkollage.ui.widget.canvas.Transformation
 import com.jetkollage.ui.widget.canvas.TransformationsContainer
@@ -64,10 +66,10 @@ data class ViewportState(
 
     fun screenToWorld(screenOffset: Offset): Offset = screenToWorldMatrix.map(screenOffset)
 
-    fun DrawScope.draw() {
+    fun DrawScope.draw(matrix: Matrix = worldToScreenMatrix) {
         withTransform(
             transformBlock = {
-                transform(worldToScreenMatrix)
+                transform(matrix)
             }
         ) {
             // Background
@@ -199,13 +201,22 @@ data class ViewportState(
             var minAbsDiffY = snapThreshold
             var edgeToSnapToY = 0f
 
-            val activeEdgesX = listOf(selectedLayerWorldRect.left, selectedLayerWorldRect.center.x, selectedLayerWorldRect.right)
-            val activeEdgesY = listOf(selectedLayerWorldRect.top, selectedLayerWorldRect.center.y, selectedLayerWorldRect.bottom)
+            val activeEdgesX = listOf(
+                selectedLayerWorldRect.left,
+                selectedLayerWorldRect.center.x,
+                selectedLayerWorldRect.right
+            )
+            val activeEdgesY = listOf(
+                selectedLayerWorldRect.top,
+                selectedLayerWorldRect.center.y,
+                selectedLayerWorldRect.bottom
+            )
             layers
                 .filter { it.id != selectedLayer.id }
                 .forEach { otherLayer ->
                     val otherLayerWorldRect = getLayerWorldRect(otherLayer)
-                    val otherLayerTargetsX = listOf(otherLayerWorldRect.left, otherLayerWorldRect.right)
+                    val otherLayerTargetsX =
+                        listOf(otherLayerWorldRect.left, otherLayerWorldRect.right)
 
                     for (activeEdge in activeEdgesX) {
                         for (targetEdge in otherLayerTargetsX) {
@@ -219,7 +230,11 @@ data class ViewportState(
                     }
 
                     // Vertical snapping checks
-                    val otherLayerTargetsY = listOf(otherLayerWorldRect.top, otherLayerWorldRect.center.y, otherLayerWorldRect.bottom)
+                    val otherLayerTargetsY = listOf(
+                        otherLayerWorldRect.top,
+                        otherLayerWorldRect.center.y,
+                        otherLayerWorldRect.bottom
+                    )
                     for (activeEdge in activeEdgesY) {
                         for (targetEdge in otherLayerTargetsY) {
                             val diff = targetEdge - activeEdge
@@ -281,6 +296,23 @@ data class ViewportState(
         } else {
             emptyList()
         }
+
+    fun export(): ImageBitmap {
+        val drawScope = CanvasDrawScope()
+        val matrix = Matrix().apply {
+            resetToPivotedTransform(
+                pivotX = intrinsicSize.width / 2f,
+                pivotY = intrinsicSize.height / 2f,
+                translationX = intrinsicSize.width / 2f,
+                translationY = intrinsicSize.height / 2f,
+                scaleX = 1f,
+                scaleY = 1f,
+            )
+        }
+        return drawScope.asBitmap(intrinsicSize) {
+            draw(matrix)
+        }
+    }
 
 }
 

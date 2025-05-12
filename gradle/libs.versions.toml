@@ -15,7 +15,7 @@ datetime = "0.6.2"
 coroutines = "1.10.2"
 koin = "4.1.0-Beta10"
 coil = "3.2.0-rc02"
-filekit = "0.10.0-beta02"
+filekit = "0.10.0-beta03"
 datastore = "1.1.6"
 settings = "1.3.0"
 google-services = "4.4.2"
@@ -75,6 +75,7 @@ cash-molecule = { module = "app.cash.molecule:molecule-runtime", version.ref = "
 filekit-dialogs = { module = "io.github.vinceglb:filekit-dialogs", version.ref = "filekit" }
 filekit-dialogs-compose = { module = "io.github.vinceglb:filekit-dialogs-compose", version.ref = "filekit" }
 filekit-coil = { module = "io.github.vinceglb:filekit-coil", version.ref = "filekit" }
+filekit-core =  { module = "io.github.vinceglb:filekit-core", version.ref = "filekit" }
 
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "settings" }
 multiplatform-settings-coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "settings" }
