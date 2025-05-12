@@ -5,7 +5,9 @@ plugins {
 
 kotlin {
     sourceSets {
-
+        wasmJsMain.dependencies {
+            implementation(libs.multiplatform.settings.no.arg)
+        }
         androidMain.dependencies {
             implementation(libs.multiplatform.settings.datastore)
             implementation(libs.androidx.datastore.preferences)

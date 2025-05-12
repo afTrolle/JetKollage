@@ -17,14 +17,16 @@ import com.jetkollage.feat.home.widgets.OverlayPickerBottomSheet
 import com.jetkollage.feat.home.widgets.Tool
 import com.jetkollage.feat.home.widgets.toolbar
 import com.jetkollage.ui.ext.toBytes
+import com.jetkollage.ui.util.rememberCustomFileSaverLauncher
 import com.jetkollage.ui.util.windowSizeClass
+import com.jetkollage.ui.util.writeNative
 import com.jetkollage.ui.widget.canvas.CanvasEvent
 import com.jetkollage.ui.widget.canvas.JetKollageCanvas
 import com.jetkollage.ui.widget.scaffold.JetKollageToolsOverlay
+import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.dialogs.compose.rememberFileSaverLauncher
-import io.github.vinceglb.filekit.write
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -35,12 +37,14 @@ fun HomeScreen() {
     val canvasState = viewmodel.canvasState.collectAsStateWithLifecycle()
 
     val scope = rememberCoroutineScope()
-    val launcher = rememberFileSaverLauncher { file ->
+    val launcher = rememberCustomFileSaverLauncher(
+        onWrite = { canvasState.value.export().toBytes() }
+    ) { file ->
         if (file != null) {
             scope.launch {
                 val bitmap = canvasState.value.export()
                 bitmap.toBytes()?.let {
-                    file.write(it)
+                    file.writeNative(it)
                 }
             }
         }
@@ -61,6 +65,8 @@ fun HomeScreen() {
         onCanvasEvent = viewmodel::onCanvasEvent,
     )
 }
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

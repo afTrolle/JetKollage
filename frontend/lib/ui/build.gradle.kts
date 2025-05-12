@@ -34,6 +34,8 @@ kotlin {
             implementation(libs.koin.core)
 
             implementation(libs.filekit.dialogs)
+            implementation(libs.filekit.dialogs.compose)
+            implementation(libs.filekit.core)
             implementation(libs.filekit.coil)
         }
 

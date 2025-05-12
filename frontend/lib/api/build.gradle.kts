@@ -5,13 +5,15 @@ plugins {
 
 kotlin {
     sourceSets {
+        wasmJsMain.dependencies {
+            implementation(libs.ktor.client.js)
+        }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
         }
         appleMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
-
         commonMain.dependencies {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negotiation)

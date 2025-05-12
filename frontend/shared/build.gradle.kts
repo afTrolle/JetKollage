@@ -30,6 +30,11 @@ kotlin {
         }
     }
 
+    wasmJs {
+        browser {}
+        binaries.executable()
+    }
+
     listOf(
         iosX64(),
         iosArm64(),

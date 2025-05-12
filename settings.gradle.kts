@@ -21,6 +21,7 @@ rootProject.name = "JetKollage"
 
 // App
 include(":app:android")
+include(":app:web")
 // Shared
 include(":frontend:shared")
 // Features
