@@ -4,32 +4,31 @@ android-minSdk = "28"
 jvm-target = "11"
 jvm-toolchain = "21"
 
-agp = "8.10.0"
+agp = "8.12.2"
 desugar = "2.1.5"
-arrow = "2.1.1"
-kotlin = "2.1.20"
-material = "1.12.0"
+arrow = "2.1.2"
+kotlin = "2.2.10"
+material = "1.13.0"
 activity-compose = "1.10.1"
-ktor = "3.1.2"
-datetime = "0.6.2"
+ktor = "3.2.3"
+datetime = "0.7.1"
 coroutines = "1.10.2"
-koin = "4.1.0-Beta10"
-coil = "3.2.0-rc02"
-filekit = "0.10.0-beta03"
-datastore = "1.1.6"
+koin = "4.1.1"
+coil = "3.3.0"
+filekit = "0.10.0"
+datastore = "1.1.7"
 settings = "1.3.0"
-google-services = "4.4.2"
-compose = "1.8.0"
-jetbrains-lifecycle = "2.9.0-beta01"
-jetbrains-navigation = "2.9.0-beta01"
-jetbrains-adaptive = "1.1.0"
+google-services = "4.4.3"
+compose = "1.10.0-alpha01"
+jetbrains-lifecycle = "2.9.3"
+jetbrains-navigation = "2.9.0-rc01"
+jetbrains-adaptive = "1.1.2"
 jetbrains-icons = "1.7.3"
-jetbrains-serialization = "1.8.1"
-aboutLibraries = "12.1.2"
+jetbrains-serialization = "1.9.0"
 molecule = "2.1.0"
 
 # Android only
-splashscreen = "1.2.0-beta02"
+splashscreen = "1.2.0-rc01"
 
 [libraries]
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
@@ -45,7 +44,7 @@ jetbrains-androidx-lifecycle-viewmodel-compose = { module = "org.jetbrains.andro
 jetbrains-androidx-lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "jetbrains-lifecycle" }
 jetbrains-androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "jetbrains-navigation" }
 jetbrains-compose-material-icons = { module = "org.jetbrains.compose.material:material-icons-core", version.ref = "jetbrains-icons" }
-jetbrains-compose-material3-window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "compose" }
+jetbrains-compose-material3-window-size = "org.jetbrains.compose.material3:material3-window-size-class:1.9.0-beta04"
 jetbrains-compose-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "jetbrains-adaptive" }
 jetbrains-compose-adaptive-layout = { module = "org.jetbrains.compose.material3.adaptive:adaptive-layout", version.ref = "jetbrains-adaptive" }
 jetbrains-compose-adaptive-navigation = { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation", version.ref = "jetbrains-adaptive" }
@@ -67,9 +66,6 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
-
-aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }
-aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
 
 cash-molecule = { module = "app.cash.molecule:molecule-runtime", version.ref = "molecule" }
 
@@ -116,5 +112,3 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
-
-aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
